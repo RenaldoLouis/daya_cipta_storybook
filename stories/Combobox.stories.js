@@ -1,56 +1,49 @@
-import { Combobox } from '@headlessui/react';
-import React, { useState } from 'react';
-import './styles/combobox.css'; // Import the custom CSS
+import { fn } from '@storybook/test';
 
-const people = [
-    { id: 1, name: 'Wade Cooper' },
-    { id: 2, name: 'Arlene Mccoy' },
-    { id: 3, name: 'Devon Webb' },
-    { id: 4, name: 'Tom Cook' },
-    { id: 5, name: 'Tanya Fox' },
-    { id: 6, name: 'Hellen Schmidt' },
-];
+import { CustomCombobox } from './components/CustomCombobox';
 
+// More on how to set up stories at: https://storybook.js.org/docs/writing-stories#default-export
 export default {
-    title: 'HeadlessUI/Combobox',
-    component: Combobox,
+    title: 'Example/CustomCombobox',
+    component: CustomCombobox,
+    parameters: {
+        // Optional parameter to center the component in the Canvas. More info: https://storybook.js.org/docs/configure/story-layout
+        layout: 'centered',
+    },
+    // This component will have an automatically generated Autodocs entry: https://storybook.js.org/docs/writing-docs/autodocs
+    tags: ['autodocs'],
+    // More on argTypes: https://storybook.js.org/docs/api/argtypes
+    argTypes: {
+        backgroundColor: { control: 'color' },
+    },
+    // Use `fn` to spy on the onClick arg, which will appear in the actions panel once invoked: https://storybook.js.org/docs/essentials/actions#action-args
+    args: { onClick: fn() },
 };
 
-export const Default = () => {
-    const [selectedPerson, setSelectedPerson] = useState(null);
-    const [query, setQuery] = useState('');
+// More on writing stories with args: https://storybook.js.org/docs/writing-stories/args
+export const Primary = {
+    args: {
+        primary: true,
+        label: 'Button',
+    },
+};
 
-    const filteredPeople =
-        query === ''
-            ? people
-            : people.filter((person) =>
-                person.name.toLowerCase().includes(query.toLowerCase())
-            );
+export const Secondary = {
+    args: {
+        label: 'Button',
+    },
+};
 
-    return (
-        <div className="combobox-container">
-            <Combobox value={selectedPerson} onChange={setSelectedPerson}>
-                <Combobox.Input
-                    className="combobox-input"
-                    onChange={(event) => setQuery(event.target.value)}
-                    placeholder="Search for a person..."
-                />
-                <Combobox.Options className="combobox-options">
-                    {filteredPeople.length === 0 && query !== '' ? (
-                        <div className="combobox-no-results">No results found.</div>
-                    ) : (
-                        filteredPeople.map((person) => (
-                            <Combobox.Option
-                                key={person.id}
-                                value={person}
-                                className="combobox-option"
-                            >
-                                {person.name}
-                            </Combobox.Option>
-                        ))
-                    )}
-                </Combobox.Options>
-            </Combobox>
-        </div>
-    );
+export const Large = {
+    args: {
+        size: 'large',
+        label: 'Button',
+    },
+};
+
+export const Small = {
+    args: {
+        size: 'small',
+        label: 'Button',
+    },
 };
