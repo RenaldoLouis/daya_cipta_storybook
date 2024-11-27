@@ -50,3 +50,5 @@ export const CustomCombobox = () => {
         </div>
     );
 }
+
+export default CustomCombobox;
