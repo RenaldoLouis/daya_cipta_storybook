@@ -1,6 +1,6 @@
 import { fn } from '@storybook/test';
+import { CustomCombobox } from '../src';
 
-import { CustomCombobox } from '../src/components/CustomCombobox';
 
 // More on how to set up stories at: https://storybook.js.org/docs/writing-stories#default-export
 export default {

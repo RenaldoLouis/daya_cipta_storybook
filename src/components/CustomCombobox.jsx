@@ -12,7 +12,7 @@ const people = [
 ];
 
 
-export const CustomCombobox = () => {
+const CustomCombobox = () => {
     const [selectedPerson, setSelectedPerson] = useState(null);
     const [query, setQuery] = useState('');
 
