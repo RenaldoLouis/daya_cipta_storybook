@@ -3,6 +3,7 @@ import commonjs from '@rollup/plugin-commonjs';
 import resolve from '@rollup/plugin-node-resolve';
 import peerDepsExternal from 'rollup-plugin-peer-deps-external';
 import postcss from 'rollup-plugin-postcss';
+import { terser } from "rollup-plugin-terser";
 
 export default {
     input: 'src/index.js', // Your components' entry point
@@ -28,13 +29,17 @@ export default {
             extensions: ['.js', '.jsx', '.ts', '.tsx'],
         }),
         commonjs(),// Convert CommonJS to ES modules
-        postcss({
-            extract: true, // Extracts CSS to a separate file
-            minimize: true, // Minifies the CSS
-            plugins: [require('autoprefixer')()],
-            extensions: ['.css'], // Ensures .css files are handled
-            extract: true, // Extracts CSS to a separate file
-        }),
+        postcss(
+            {
+                extract: true, // Extracts CSS to a separate file
+                minimize: true, // Minifies the CSS
+                plugins: [require('autoprefixer')()],
+                extensions: ['.css'], // Ensures .css files are handled
+                extract: true, // Extracts CSS to a separate file
+                inject: true
+            }
+        ),
+        terser(),
         babel({
             presets: [['@babel/preset-react', { "runtime": "automatic" }]],
             babelHelpers: 'bundled',
@@ -43,5 +48,4 @@ export default {
         }),
     ],
     external: ['react', 'react-dom'], // Ensure React is not bundled
-
 };
