@@ -1,6 +1,6 @@
 import { Combobox as HeadlessCombobox } from '@headlessui/react';
 import React, { useState } from 'react';
-import '../styles/combobox.css'; // Import the custom CSS
+import './combobox.css'; // Import the custom CSS
 
 const people = [
     { id: 1, name: 'Wade Cooper' },
